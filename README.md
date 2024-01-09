@@ -2,7 +2,7 @@ A TypeScript component similar to Flickr's justified layout.
 
 # Usage
 
----
+
 Add the `TSJustifiedLayout` component to your code with the following props:
 - `layoutItems: number[];` - An array of aspect ratios for the images you are adding to the grid
 - `itemSpacing?: number;` - The amount of spacing between each image, in pixels. (Default: 10)
@@ -14,6 +14,8 @@ Add the `TSJustifiedLayout` component to your code with the following props:
 - `showWidows?: boolean;` - If the last row should be shown. (Default: true)
 
 ## Example Usage
+
+
 ```typescript jsx
 <TSJustifiedLayout width={width}
     layoutItems={imagesOnPage.map(value => ({
@@ -28,15 +30,15 @@ Add the `TSJustifiedLayout` component to your code with the following props:
 
 # Install
 
----
+
 `npm i react-justified-layout-ts`
 
 # Credits
 
---- 
+
 The display logic for the layout and the math used to calculate the row height for each row is adapted from [Flickr's Justified Layout library](https://github.com/flickr/justified-layout).
 
 # License
 
----
+
 Open Source Licensed under the MIT license.
