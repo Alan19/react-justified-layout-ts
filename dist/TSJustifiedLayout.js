@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TSJustifiedLayout = void 0;
 const react_1 = __importStar(require("react"));
-function TSJustifiedLayout({ children, images, itemSpacing = 10, rowSpacing = 10, showWidows = true, targetRowHeight = 320, targetRowHeightTolerance = .25, width }) {
+function TSJustifiedLayout({ children, layoutItems, itemSpacing = 10, rowSpacing = 10, showWidows = true, targetRowHeight = 320, targetRowHeightTolerance = .25, width }) {
     const minAspectRatio = width / targetRowHeight * (1 - targetRowHeightTolerance);
     const maxAspectRatio = width / targetRowHeight * (1 + targetRowHeightTolerance);
     /**
@@ -35,7 +35,7 @@ function TSJustifiedLayout({ children, images, itemSpacing = 10, rowSpacing = 10
      * */
     function addItem(value) {
         const newItems = rowBuffer.concat(value);
-        const newAspectRatio = newItems.map(data => data.dimensions).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        const newAspectRatio = newItems.map(dimensions => dimensions).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
         const rowWidthWithoutSpacing = width - (newItems.length - 1) * itemSpacing;
         const targetAspectRatio = rowWidthWithoutSpacing / targetRowHeight;
         // Row still has space
@@ -55,7 +55,7 @@ function TSJustifiedLayout({ children, images, itemSpacing = 10, rowSpacing = 10
             else {
                 // Calculate width/aspect ratio for row before adding new item
                 const previousRowWidthWithoutSpacing = width - (rowBuffer.length - 1) * itemSpacing;
-                const previousAspectRatio = rowBuffer.map(data => data.dimensions).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+                const previousAspectRatio = rowBuffer.map(dimensions => dimensions).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
                 const previousTargetAspectRatio = previousRowWidthWithoutSpacing / targetRowHeight;
                 // If the new aspect ratio is farther from the target after the insert, then push row buffer and insert new item into the next row
                 if (Math.abs(newAspectRatio - targetAspectRatio) > Math.abs(previousAspectRatio - previousTargetAspectRatio)) {
@@ -82,7 +82,7 @@ function TSJustifiedLayout({ children, images, itemSpacing = 10, rowSpacing = 10
     }
     const rows = [];
     let rowBuffer = [];
-    images.forEach((value) => {
+    layoutItems.forEach((value) => {
         const isItemSuccessfullyAdded = addItem(value);
         if (!isItemSuccessfullyAdded) {
             addItem(value);

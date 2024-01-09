@@ -1,9 +1,7 @@
 import React from "react";
+type ElementDimensions = number;
 export interface TSJustifiedLayoutProps {
-    images: {
-        src: string;
-        dimensions: number;
-    }[];
+    layoutItems: ElementDimensions[];
     itemSpacing?: number;
     rowSpacing?: number;
     targetRowHeight?: number;
@@ -12,5 +10,5 @@ export interface TSJustifiedLayoutProps {
     children: any[];
     showWidows?: boolean;
 }
-declare function TSJustifiedLayout({ children, images, itemSpacing, rowSpacing, showWidows, targetRowHeight, targetRowHeightTolerance, width }: TSJustifiedLayoutProps): React.JSX.Element;
+declare function TSJustifiedLayout({ children, layoutItems, itemSpacing, rowSpacing, showWidows, targetRowHeight, targetRowHeightTolerance, width }: TSJustifiedLayoutProps): React.JSX.Element;
 export { TSJustifiedLayout };

@@ -1,6 +1,6 @@
 {
   "name": "react-justified-layout-ts",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A component based off Flickr's justified layout that is compatible with Typescript",
   "main": "./dist/TSJustifiedLayout.js",
   "types": "./dist/TSJustifiedLayout.d.ts",
@@ -22,5 +22,6 @@
   },
   "peerDependencies": {
     "react": "^18.2.0"
-  }
+  },
+  "repository": "https://github.com/Alan19/react-justified-layout-ts"
 }
