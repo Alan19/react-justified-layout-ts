@@ -1,10 +1,12 @@
 {
   "name": "react-justified-layout-ts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A component based off Flickr's justified layout that is compatible with Typescript",
   "main": "./dist/TSJustifiedLayout.js",
   "types": "./dist/TSJustifiedLayout.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "typescript": "tsc"
