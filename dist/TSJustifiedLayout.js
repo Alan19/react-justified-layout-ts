@@ -99,7 +99,7 @@ function TSJustifiedLayout({ children, layoutItems, itemSpacing = 10, rowSpacing
      */
     function renderChildren(height) {
         childNodeCounter++;
-        return (0, react_1.cloneElement)(children[childNodeCounter], Object.assign(Object.assign({}, children[childNodeCounter].props), { style: Object.assign(Object.assign({}, children[childNodeCounter].style), { height: height }) }));
+        return (0, react_1.cloneElement)(children[childNodeCounter], Object.assign(Object.assign({}, children[childNodeCounter].props), { style: Object.assign(Object.assign({}, children[childNodeCounter].props.style), { height: height }) }));
     }
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { style: { width: "100%" } }, rows.map(value => {

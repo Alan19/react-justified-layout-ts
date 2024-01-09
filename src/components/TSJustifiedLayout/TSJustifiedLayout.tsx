@@ -107,7 +107,7 @@ function TSJustifiedLayout({
         childNodeCounter++;
         return cloneElement(children[childNodeCounter], {
             ...children[childNodeCounter].props, style: {
-                ...children[childNodeCounter].style,
+                ...children[childNodeCounter].props.style,
                 height: height
             }
         })
