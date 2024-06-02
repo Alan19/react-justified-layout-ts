@@ -1,6 +1,6 @@
 import React, {cloneElement} from "react";
 
-type ElementDimensions = number ;
+type ElementDimensions = number;
 
 export interface TSJustifiedLayoutProps {
     layoutItems: ElementDimensions[];
@@ -50,7 +50,7 @@ function TSJustifiedLayout({
             // Always accept if it's just 1 item
             if (rowBuffer.length === 0) {
                 rowBuffer.push(value);
-                rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio});
+                rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value});
                 rowBuffer = [];
                 return true;
             } else {
@@ -60,14 +60,14 @@ function TSJustifiedLayout({
                 const previousTargetAspectRatio = previousRowWidthWithoutSpacing / targetRowHeight;
                 // If the new aspect ratio is farther from the target after the insert, then push row buffer and insert new item into the next row
                 if (Math.abs(newAspectRatio - targetAspectRatio) > Math.abs(previousAspectRatio - previousTargetAspectRatio)) {
-                    rows.push({items: rowBuffer, height: previousRowWidthWithoutSpacing / previousAspectRatio})
+                    rows.push({items: rowBuffer, height: previousRowWidthWithoutSpacing / previousAspectRatio, aspectRatio: value})
                     rowBuffer = []
                     return false;
                 }
                 // If the new aspect ratio is closer to the target aspect ratio, then insert item and push row buffer
                 else {
                     rowBuffer.push(value);
-                    rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio})
+                    rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value})
                     rowBuffer = []
                     return true;
                 }
@@ -75,13 +75,13 @@ function TSJustifiedLayout({
         } else {
             // New aspect ratio is within aspect ratio tolerance, so we finish off the row
             rowBuffer.push(value);
-            rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio})
+            rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value})
             rowBuffer = []
             return true;
         }
     }
 
-    const rows: { items: ElementDimensions[]; height: number; }[] = [];
+    const rows: { items: ElementDimensions[]; height: number; aspectRatio: number }[] = [];
     let rowBuffer: ElementDimensions[] = [];
 
 
@@ -93,39 +93,46 @@ function TSJustifiedLayout({
     })
 
     // Handle leftover content
+    console.log(rows)
     if (showWidows) {
-        rows.push({items: rowBuffer, height: rows.length === 0 ? targetRowHeight : rows[rows.length - 1].height})
+        rows.push({items: rowBuffer, height: rows.length === 0 ? targetRowHeight : rows[rows.length - 1].height, aspectRatio: rows.length === 0 ? 1 : rows[rows.length - 1].aspectRatio})
     }
 
     let childNodeCounter = -1;
 
     /**
      * Clone the children element, and inject the height of the element as a prop
-     * @param height The height that the element should be
+     * @param isLast If the element belongs to the last row, and therefore should use height instead of flex
      */
-    function renderChildren(height: number) {
+    function renderChildren(isLast: boolean) {
         childNodeCounter++;
         return cloneElement(children[childNodeCounter], {
             ...children[childNodeCounter].props, style: {
                 ...children[childNodeCounter].props.style,
-                height: height
+                maxWidth: '100%',
+                ...(isLast ? {maxHeight: '100%'} : {})
             }
         })
     }
 
     return (
         <>
+            <div style={{width: "100%"}} />
             <div style={{width: "100%"}}>
-                {rows.map(value => {
+                {rows.map((value, index, array) => {
+                    let isLastRow = index === array.length - 1 && showWidows;
                     return <div style={{
                         display: "flex",
                         flexDirection: "row",
                         gap: itemSpacing,
-                        marginBottom: rowSpacing
+                        marginBottom: rowSpacing,
+                        ...(isLastRow ? {height: value.height} : {})
                     }}>
-                        {value.items.map(() => <div style={{height: value.height}}>
-                            {renderChildren(value.height)}
-                        </div>)}
+                        {value.items.map((aspectRatio) => {
+                            return <div style={isLastRow ? {aspectRatio: aspectRatio} : {flex: aspectRatio}}>
+                                {renderChildren(isLastRow)}
+                            </div>;
+                        })}
                     </div>
                 })}
             </div>
