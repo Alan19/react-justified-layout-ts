@@ -50,7 +50,7 @@ function TSJustifiedLayout({
             // Always accept if it's just 1 item
             if (rowBuffer.length === 0) {
                 rowBuffer.push(value);
-                rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value});
+                rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio});
                 rowBuffer = [];
                 return true;
             } else {
@@ -60,14 +60,14 @@ function TSJustifiedLayout({
                 const previousTargetAspectRatio = previousRowWidthWithoutSpacing / targetRowHeight;
                 // If the new aspect ratio is farther from the target after the insert, then push row buffer and insert new item into the next row
                 if (Math.abs(newAspectRatio - targetAspectRatio) > Math.abs(previousAspectRatio - previousTargetAspectRatio)) {
-                    rows.push({items: rowBuffer, height: previousRowWidthWithoutSpacing / previousAspectRatio, aspectRatio: value})
+                    rows.push({items: rowBuffer, height: previousRowWidthWithoutSpacing / previousAspectRatio})
                     rowBuffer = []
                     return false;
                 }
                 // If the new aspect ratio is closer to the target aspect ratio, then insert item and push row buffer
                 else {
                     rowBuffer.push(value);
-                    rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value})
+                    rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio})
                     rowBuffer = []
                     return true;
                 }
@@ -75,14 +75,16 @@ function TSJustifiedLayout({
         } else {
             // New aspect ratio is within aspect ratio tolerance, so we finish off the row
             rowBuffer.push(value);
-            rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio, aspectRatio: value})
+            rows.push({items: rowBuffer, height: rowWidthWithoutSpacing / newAspectRatio})
             rowBuffer = []
             return true;
         }
     }
 
-    const rows: { items: ElementDimensions[]; height: number; aspectRatio: number }[] = [];
+    const rows: { items: ElementDimensions[]; height: number;  }[] = [];
     let rowBuffer: ElementDimensions[] = [];
+
+    console.log(rows)
 
 
     layoutItems.forEach((value) => {
@@ -95,7 +97,7 @@ function TSJustifiedLayout({
     // Handle leftover content
     console.log(rows)
     if (showWidows) {
-        rows.push({items: rowBuffer, height: rows.length === 0 ? targetRowHeight : rows[rows.length - 1].height, aspectRatio: rows.length === 0 ? 1 : rows[rows.length - 1].aspectRatio})
+        rows.push({items: rowBuffer, height: rows.length === 0 ? targetRowHeight : rows[rows.length - 1].height})
     }
 
     let childNodeCounter = -1;
