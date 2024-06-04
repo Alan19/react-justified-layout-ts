@@ -3,6 +3,99 @@ import React from "react";
 
 const displayedImages = [
     {
+        "title": "Castor Evolved",
+        "artist": "@TOOMIRO",
+        "tags": [
+            "Castor",
+            "Featured"
+        ],
+        "href": "https://x.com/FaintAlcor/status/1749579348045111636?s=20",
+        "published": "2024-01-22",
+        "aspectRatio": 1.48,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/castor_evolved.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/castor_evolved.png",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/castor_evolved.png"
+    },
+    {
+        "title": "Techwear Ninja v2",
+        "artist": "@edadrz",
+        "tags": [
+            "Rastaban Form",
+            "Techwear",
+            "Hibernal Assassin"
+        ],
+        "href": "https://x.com/edadrz2/status/1750189393833517203?s=20",
+        "published": "2024-01-24",
+        "aspectRatio": 0.7857142857142857,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/techwear_ninja_v2.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/techwear_ninja_v2.png",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/techwear_ninja_v2.png"
+    },
+    {
+        "title": "Glimmer on the Shore",
+        "artist": "@SiN_remyheart",
+        "tags": [
+            "Jupiter Form",
+            "Featured"
+        ],
+        "href": "https://x.com/SiN_remyheart/status/1750043825161244678?s=20",
+        "published": "2024-01-24",
+        "aspectRatio": 1.15625,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/glimmer_on_the_shore.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/glimmer_on_the_shore.png",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/glimmer_on_the_shore.png"
+    },
+    {
+        "title": "Farmer Sketch",
+        "artist": "@KuroPenguinEx",
+        "tags": [
+            "Aquarius Form"
+        ],
+        "href": "https://x.com/FaintAlcor/status/1751444972904063414?s=20",
+        "published": "2024-01-27",
+        "aspectRatio": 0.7069555302166477,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/farmer_sketch.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/farmer_sketch.webp%7D",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/farmer_sketch.png"
+    },
+    {
+        "parent": "Farmer Sketch",
+        "tags": [
+            "Aquarius Form"
+        ],
+        "href": "",
+        "aspectRatio": 0.7069555302166477,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/farmer_sketch/0.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/farmer_sketch/0.webp",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/farmer_sketch/0.png"
+    },
+    {
+        "title": "My Room",
+        "artist": "@ito_44_3",
+        "tags": [
+            "Thuban Form"
+        ],
+        "href": "https://x.com/ito_44_3/status/1759850276633419776?s=20",
+        "published": "2024-02-02",
+        "aspectRatio": 1.4166666666666667,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/my_room.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/my_room.webp",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/my_room.png"
+    },
+    {
+        "title": "Triangulum Combat Suit",
+        "artist": "@neumokun",
+        "tags": [
+            "Triangulum Form"
+        ],
+        "href": "https://bsky.app/profile/neumokun.bsky.social/post/3klncrgkl5z24",
+        "published": "2024-02-17",
+        "aspectRatio": 0.7501875468867217,
+        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/triangulum_combat_suit.webp",
+        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/triangulum_combat_suit.webp",
+        "src": "https://alcorsiteartbucket.s3.amazonaws.com/triangulum_combat_suit.png"
+    },
+    {
         "tags": [
             "Eclipse Deity"
         ],
