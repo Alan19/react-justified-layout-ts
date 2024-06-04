@@ -91,15 +91,13 @@ function TSJustifiedLayout({
 
     /**
      * Clone the children element, and inject the height of the element as a prop
-     * @param isLast If the element belongs to the last row, and therefore should use height instead of flex
      */
-    function renderChildren(isLast: boolean) {
+    function renderChildren() {
         childNodeCounter++;
         return cloneElement(children[childNodeCounter], {
             ...children[childNodeCounter].props, style: {
                 ...children[childNodeCounter].props.style,
-                maxWidth: '100%',
-                ...(isLast ? {maxHeight: '100%'} : {})
+                maxWidth: '100%'
             }
         })
     }
@@ -118,7 +116,7 @@ function TSJustifiedLayout({
                     }>
                         {value.items.map((aspectRatio) => {
                             return <div style={isLastRow ? {aspectRatio: aspectRatio} : {flex: aspectRatio}}>
-                                {renderChildren(isLastRow)}
+                                {renderChildren()}
                             </div>;
                         })}
                     </div>
