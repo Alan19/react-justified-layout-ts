@@ -40,5 +40,8 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
-  "repository": "https://github.com/Alan19/react-justified-layout-ts"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alan19/react-justified-layout-ts.git"
+  }
 }
