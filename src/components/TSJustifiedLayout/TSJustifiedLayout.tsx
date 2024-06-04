@@ -30,7 +30,7 @@ function TSJustifiedLayout({
     const minAspectRatio = width / targetRowHeight * (1 - targetRowHeightTolerance);
     const maxAspectRatio = width / targetRowHeight * (1 + targetRowHeightTolerance);
 
-    const rows: { items: ElementDimensions[]; height: number;  }[] = [];
+    const rows: { items: ElementDimensions[]; height: number; }[] = [];
     let rowBuffer: ElementDimensions[] = [];
 
     /**
@@ -80,8 +80,6 @@ function TSJustifiedLayout({
     }
 
 
-
-
     layoutItems.forEach((value) => addItem(value))
 
     // Handle leftover content
@@ -108,7 +106,6 @@ function TSJustifiedLayout({
 
     return (
         <>
-            <div style={{width: "100%"}} />
             <div style={{width: "100%"}}>
                 {rows.map((value, index, array) => {
                     let isLastRow = index === array.length - 1 && showWidows;
@@ -117,8 +114,8 @@ function TSJustifiedLayout({
                         flexDirection: "row",
                         gap: itemSpacing,
                         marginBottom: rowSpacing,
-                        ...(isLastRow ? {height: value.height} : {})
-                    }}>
+                        aspectRatio: width / value.height}
+                    }>
                         {value.items.map((aspectRatio) => {
                             return <div style={isLastRow ? {aspectRatio: aspectRatio} : {flex: aspectRatio}}>
                                 {renderChildren(isLastRow)}
