@@ -1,4 +1,4 @@
-import {TSJustifiedLayout, TSJustifiedLayoutProps} from "../components/TSJustifiedLayout/TSJustifiedLayout";
+import {TSJustifiedLayout, TSJustifiedLayoutProps} from "../components/TSJustifiedLayout";
 import React from "react";
 
 

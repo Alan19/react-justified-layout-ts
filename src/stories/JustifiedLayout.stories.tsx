@@ -196,3 +196,16 @@ export const Secondary: Story = {
         children: displayedImages.slice(1, 5).map(value => <img src={value.webp} /> )
     },
 }
+
+export const Single: Story = {
+    args: {
+        children: [<img src={'https://alcorsiteartbucket.s3.amazonaws.com/webp/alcor_wow.webp'} />],
+        width: 847,
+        showWidows: true,
+        targetRowHeight: undefined,
+        rowSpacing: undefined,
+        itemSpacing: undefined,
+        targetRowHeightTolerance: undefined,
+        layoutItems: [1],
+    }
+}
