@@ -1,12 +1,12 @@
 {
   "name": "react-justified-layout-ts",
-  "version": "1.1.15",
+  "version": "2.0.1",
   "description": "A component based off Flickr's justified layout that is compatible with Typescript",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typescript": "tsc",
+    "typescript": "tsc && copyfiles -u 1 src/**/*.css dist/",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -30,7 +30,9 @@
     "@storybook/react-webpack5": "^8.1.5",
     "@storybook/test": "^8.1.5",
     "@types/react": "^18.2.47",
+    "copyfiles": "^2.4.1",
     "react": "^18.2.0",
+    "rimraf": "^5.0.7",
     "storybook": "^8.1.5",
     "typescript": "^5.3.3"
   },

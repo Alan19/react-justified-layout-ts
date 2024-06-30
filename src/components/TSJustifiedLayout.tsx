@@ -1,4 +1,4 @@
-import React, {cloneElement} from "react";
+import React from "react";
 import './layout.css'
 
 type ElementDimensions = number;
@@ -10,8 +10,9 @@ export interface TSJustifiedLayoutProps {
     targetRowHeight?: number;
     targetRowHeightTolerance?: number;
     width: number;
-    children: any[];
+    children: React.JSX.Element[];
     showWidows?: boolean;
+    containerStyle?: React.CSSProperties;
     // TODO Implement these
     // maxNumRows?: number;
     // fullWidthBreakoutRowCadence?: number
@@ -26,7 +27,8 @@ function TSJustifiedLayout({
                                showWidows = true,
                                targetRowHeight = 320,
                                targetRowHeightTolerance = .25,
-                               width
+                               width,
+                               containerStyle
                            }: TSJustifiedLayoutProps) {
     const minAspectRatio = width / targetRowHeight * (1 - targetRowHeightTolerance);
     const maxAspectRatio = width / targetRowHeight * (1 + targetRowHeightTolerance);
@@ -81,7 +83,9 @@ function TSJustifiedLayout({
     }
 
 
-    layoutItems.forEach((value) => addItem(value))
+    layoutItems.forEach((value) => {
+        addItem(value);
+    })
 
     // Handle leftover content
     if (showWidows && rowBuffer.length !== 0) {
@@ -95,14 +99,14 @@ function TSJustifiedLayout({
      */
     function renderRow(aspectRatio: ElementDimensions, isLastRow: boolean) {
         childNodeCounter++;
-        return cloneElement(children[childNodeCounter], {
-            ...children[childNodeCounter].props, style: {
-                ...children[childNodeCounter].props.style,
-                aspectRatio: aspectRatio,
-                ...(isLastRow ? {} : {flex: aspectRatio}),
-                maxHeight: '100%'
-            }
-        })
+        return <div style={{
+            maxHeight: '100%',
+            aspectRatio: aspectRatio,
+            ...(isLastRow ? {} : {flex: aspectRatio}),
+            ...containerStyle
+        }}>
+            {children[childNodeCounter]}
+        </div>
     }
 
     return (
