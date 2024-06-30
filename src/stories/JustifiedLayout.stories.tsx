@@ -172,6 +172,7 @@ const displayedImages = [
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
+    name: "Complex Elements",
     args: {
         width: 847,
         showWidows: true,
@@ -180,11 +181,14 @@ export const Primary: Story = {
         itemSpacing: undefined,
         layoutItems:  displayedImages.map(value => value.aspectRatio),
         targetRowHeightTolerance: undefined,
-        children: displayedImages.map(value => <img src={value.webp} /> )
+        children: displayedImages.map(value => <div style={{position: "relative"}}>
+            <div style={{top: 16, left: 16, position: "absolute"}}>Testing</div>
+            <img src={value.webp}/></div>)
     },
 };
 
 export const Secondary: Story = {
+    name: "Image Tag Elements",
     args: {
         width: 847,
         showWidows: true,
@@ -198,8 +202,23 @@ export const Secondary: Story = {
 }
 
 export const Single: Story = {
+    name: "Single Elements",
     args: {
         children: [<img src={'https://alcorsiteartbucket.s3.amazonaws.com/webp/alcor_wow.webp'} />],
+        width: 847,
+        showWidows: true,
+        targetRowHeight: undefined,
+        rowSpacing: undefined,
+        itemSpacing: undefined,
+        targetRowHeightTolerance: undefined,
+        layoutItems: [1],
+    }
+}
+
+export const SingleWithDiv: Story = {
+    name: "Complex Single Element",
+    args: {
+        children: [<div><img src={'https://alcorsiteartbucket.s3.amazonaws.com/webp/alcor_wow.webp'}/></div>],
         width: 847,
         showWidows: true,
         targetRowHeight: undefined,

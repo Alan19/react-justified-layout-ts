@@ -1,4 +1,5 @@
 import React, {cloneElement} from "react";
+import './layout.css'
 
 type ElementDimensions = number;
 
@@ -92,37 +93,34 @@ function TSJustifiedLayout({
     /**
      * Clone the children element, and inject the height of the element as a prop
      */
-    function renderChildren() {
+    function renderRow(aspectRatio: ElementDimensions, isLastRow: boolean) {
         childNodeCounter++;
         return cloneElement(children[childNodeCounter], {
             ...children[childNodeCounter].props, style: {
                 ...children[childNodeCounter].props.style,
-                maxWidth: '100%'
+                aspectRatio: aspectRatio,
+                ...(isLastRow ? {} : {flex: aspectRatio}),
+                maxHeight: '100%'
             }
         })
     }
 
     return (
-        <>
-            <div style={{width: "100%"}}>
-                {rows.map((value, index, array) => {
-                    let isLastRow = index === array.length - 1 && showWidows;
-                    return <div style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: itemSpacing,
-                        marginBottom: rowSpacing,
-                        aspectRatio: width / value.height}
-                    }>
-                        {value.items.map((aspectRatio) => {
-                            return <div style={isLastRow ? {aspectRatio: aspectRatio} : {flex: aspectRatio}}>
-                                {renderChildren()}
-                            </div>;
-                        })}
-                    </div>
-                })}
-            </div>
-        </>
+        <div style={{width: "100%"}}>
+            {rows.map((value, index, array) => {
+                let isLastRow = index === array.length - 1 && showWidows;
+                return <div className={'justified-row'} style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: itemSpacing,
+                    marginBottom: rowSpacing,
+                    aspectRatio: width / value.height
+                }
+                }>
+                    {value.items.map((aspectRatio) => renderRow(aspectRatio, isLastRow))}
+                </div>
+            })}
+        </div>
     );
 }
 
