@@ -97,11 +97,11 @@ function TSJustifiedLayout({
     /**
      * Clone the children element, and inject the height of the element as a prop
      */
-    function renderRow(aspectRatio: ElementDimensions, isLastRow: boolean) {
+    function renderRowItem(aspectRatio: ElementDimensions, isSoloRow: boolean) {
         childNodeCounter++;
         return <div style={{
             aspectRatio: aspectRatio,
-            flex: aspectRatio,
+            flex: isSoloRow ? 1 : aspectRatio,
             ...containerStyle
         }}>
             {children[childNodeCounter]}
@@ -109,6 +109,7 @@ function TSJustifiedLayout({
     }
 
     // TODO Figure out how to eliminate the tiny gap between div and actual image height
+    // TODO Make bottom row respect length restrictions
     return (
         <div style={{
             display: 'flex',
@@ -117,13 +118,17 @@ function TSJustifiedLayout({
         }}>
             {rows.map((value, index, array) => {
                 let isLastRow = index === array.length - 1 && showWidows;
+                let rowTotalAspectRatio = value.items.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+                const isLastRowWithinTolerance = isLastRow && rowTotalAspectRatio * targetRowHeight + (value.items.length - 1) * itemSpacing < minAspectRatio * targetRowHeight;
+                const fakeElementAspectRatio = (width - rowTotalAspectRatio - (value.items.length) * itemSpacing) / targetRowHeight
                 return <div className={'justified-row'} style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: itemSpacing
+                    gap: itemSpacing,
                 }
                 }>
-                    {value.items.map((aspectRatio) => renderRow(aspectRatio, isLastRow))}
+                    {value.items.map((aspectRatio) => renderRowItem(aspectRatio, value.items.length === 1))}
+                    {isLastRowWithinTolerance && <div style={{aspectRatio: fakeElementAspectRatio, flex: fakeElementAspectRatio}}></div>}
                 </div>
             })}
         </div>
