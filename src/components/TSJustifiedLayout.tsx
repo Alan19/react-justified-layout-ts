@@ -108,15 +108,19 @@ function TSJustifiedLayout({
         </div>
     }
 
+    // TODO Figure out how to eliminate the tiny gap between div and actual image height
     return (
-        <div style={{width: "100%"}}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: rowSpacing
+        }}>
             {rows.map((value, index, array) => {
                 let isLastRow = index === array.length - 1 && showWidows;
                 return <div className={'justified-row'} style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: itemSpacing,
-                    marginBottom: rowSpacing
+                    gap: itemSpacing
                 }
                 }>
                     {value.items.map((aspectRatio) => renderRow(aspectRatio, isLastRow))}
