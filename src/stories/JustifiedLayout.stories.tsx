@@ -203,7 +203,7 @@ const displayedImages = [
 export const Primary: Story = {
     name: "Complex Elements",
     args: {
-        width: 847,
+        width: 491,
         showWidows: true,
         targetRowHeight: undefined,
         rowSpacing: undefined,
@@ -212,7 +212,7 @@ export const Primary: Story = {
         targetRowHeightTolerance: undefined,
         children: displayedImages.map(value => <>
                 <div style={{top: 16, left: 16, position: "absolute"}}>Testing</div>
-                <img src={value.webp}/>
+            <img src={value.webp || value.src}/>
             </>
         ),
         containerStyle: {position: 'relative'}

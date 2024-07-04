@@ -100,9 +100,8 @@ function TSJustifiedLayout({
     function renderRow(aspectRatio: ElementDimensions, isLastRow: boolean) {
         childNodeCounter++;
         return <div style={{
-            maxHeight: '100%',
             aspectRatio: aspectRatio,
-            ...(isLastRow ? {} : {flex: aspectRatio}),
+            flex: aspectRatio,
             ...containerStyle
         }}>
             {children[childNodeCounter]}
@@ -117,8 +116,7 @@ function TSJustifiedLayout({
                     display: "flex",
                     flexDirection: "row",
                     gap: itemSpacing,
-                    marginBottom: rowSpacing,
-                    aspectRatio: width / value.height
+                    marginBottom: rowSpacing
                 }
                 }>
                     {value.items.map((aspectRatio) => renderRow(aspectRatio, isLastRow))}
