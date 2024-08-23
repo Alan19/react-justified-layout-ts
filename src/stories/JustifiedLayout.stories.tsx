@@ -108,22 +108,6 @@ const displayedImages = [
         "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/combat_ready_duo.webp"
     },
     {
-        "src": "https://pbs.twimg.com/media/FnHp4nWaUAA-lgD?format=jpg&name=large",
-        "title": "Special Archery Training!",
-        "href": "https://twitter.com/Yamainu_ken/status/1617331411761115138?s=20",
-        "tags": [
-            "Superhero",
-            "Indra Suit",
-            "Bow",
-            "Bodysuit",
-            "Thuban Form",
-            "Featured"
-        ],
-        "artist": "@Yamainu_ken",
-        "published": "2023-01-22",
-        "aspectRatio": 1.5442260442260443
-    },
-    {
         "title": "Evening Train",
         "artist": "@greyy_arts",
         "tags": [
@@ -196,6 +180,22 @@ const displayedImages = [
         ],
         "published": "2021-06-19",
         "aspectRatio": 0.7084745762711865
+    },
+    {
+        "src": "https://pbs.twimg.com/media/FnHp4nWaUAA-lgD?format=jpg&name=large",
+        "title": "Special Archery Training!",
+        "href": "https://twitter.com/Yamainu_ken/status/1617331411761115138?s=20",
+        "tags": [
+            "Superhero",
+            "Indra Suit",
+            "Bow",
+            "Bodysuit",
+            "Thuban Form",
+            "Featured"
+        ],
+        "artist": "@Yamainu_ken",
+        "published": "2023-01-22",
+        "aspectRatio": 1.5442260442260443
     }
 ]
 

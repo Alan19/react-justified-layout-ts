@@ -120,7 +120,7 @@ function TSJustifiedLayout({
                 let isLastRow = index === array.length - 1 && showWidows;
                 let rowTotalAspectRatio = value.items.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
                 const isLastRowWithinTolerance = isLastRow && rowTotalAspectRatio * value.height + (value.items.length - 1) * itemSpacing < minAspectRatio * value.height;
-                const fakeElementAspectRatio = (width - rowTotalAspectRatio * value.height - value.items.length * itemSpacing) / value.height
+                const fakeElementAspectRatio = (width - rowTotalAspectRatio * value.height - (value.items.length - 1) * itemSpacing) / value.height
                 return <div className={'justified-row'} style={{
                     display: "flex",
                     flexDirection: "row",
@@ -128,7 +128,7 @@ function TSJustifiedLayout({
                 }
                 }>
                     {value.items.map((aspectRatio) => renderRowItem(aspectRatio, value.items.length === 1))}
-                    {isLastRowWithinTolerance && <div style={{aspectRatio: fakeElementAspectRatio, flex: fakeElementAspectRatio}}></div>}
+                    {isLastRowWithinTolerance && <div style={{flex: fakeElementAspectRatio}}></div>}
                 </div>
             })}
         </div>
