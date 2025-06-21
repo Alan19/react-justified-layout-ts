@@ -4,7 +4,8 @@ A TypeScript component similar to Flickr's justified layout.
 
 
 Add the `TSJustifiedLayout` component to your code with the following props:
-- `layoutItems: number[];` - An array of aspect ratios for the images you are adding to the grid
+
+- `aspectRatioList: number[];` - An array of aspect ratios for the images you are adding to the grid
 - `itemSpacing?: number;` - The amount of spacing between each image, in pixels. (Default: 10)
 - `rowSpacing?: number;` - The amount of spacing between each row, in pixels. (Default: 10)
 - `targetRowHeight?: number;` - The target row height for a row, in pixels. (Default: 320)
@@ -18,7 +19,7 @@ Add the `TSJustifiedLayout` component to your code with the following props:
 
 ```typescript jsx
 <TSJustifiedLayout width={width}
-    layoutItems={imagesOnPage.map(value => ({
+                   aspectRatioList={imagesOnPage.map(value => ({
        dimensions: value.aspectRatio || 1
     }))}>
         {imagesOnPage.map(value => <img

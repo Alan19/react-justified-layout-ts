@@ -1,6 +1,8 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {ConfiguredJustifiedLayout} from "./ConfiguredJustifiedLayout";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const meta = {
     title: 'JustifiedLayout/Basic',
@@ -43,69 +45,10 @@ const displayedImages = [
         ],
         "href": "https://x.com/RSN_07/status/1775664237119217719?s=20",
         "published": "2024-04-03",
-        "aspectRatio": 0.6328963051251489,
+        "aspectRatio": 0.6328125,
         "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/quick_draw_stance.webp",
         "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/quick_draw_stance.webp",
         "src": "https://alcorsiteartbucket.s3.amazonaws.com/quick_draw_stance.PNG"
-    },
-    {
-        "title": "Glimmer on the Shore",
-        "artist": "@SiN_remyheart",
-        "tags": [
-            "Jupiter Form",
-            "Featured"
-        ],
-        "href": "https://x.com/SiN_remyheart/status/1750043825161244678?s=20",
-        "published": "2024-01-24",
-        "aspectRatio": 1.15625,
-        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/glimmer_on_the_shore.webp",
-        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/glimmer_on_the_shore.png",
-        "src": "https://alcorsiteartbucket.s3.amazonaws.com/glimmer_on_the_shore.png"
-    },
-    {
-        "title": "Castor Evolved",
-        "artist": "@TOOMIRO",
-        "tags": [
-            "Castor",
-            "Featured"
-        ],
-        "href": "https://x.com/FaintAlcor/status/1749579348045111636?s=20",
-        "published": "2024-01-22",
-        "aspectRatio": 1.48,
-        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/castor_evolved.webp",
-        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/castor_evolved.png",
-        "src": "https://alcorsiteartbucket.s3.amazonaws.com/castor_evolved.png"
-    },
-    {
-        "title": "Happy 24th Birthday!",
-        "artist": "@DrawingDDoom",
-        "tags": [
-            "Aldhibah Form",
-            "Techwear",
-            "Castor",
-            "Featured"
-        ],
-        "href": "https://x.com/DrawingDDoom/status/1715601315492245545?s=20",
-        "published": "2023-10-21",
-        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/happy_24_th_birthday.webp",
-        "src": "https://alcorsiteartbucket.s3.amazonaws.com/happy_24_th_birthday.png",
-        "aspectRatio": 0.6097560975609756,
-        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/happy_24_th_birthday.webp"
-    },
-    {
-        "src": "https://alcorsiteartbucket.s3.amazonaws.com/combat_ready_duo.png",
-        "title": "Combat Ready Duo",
-        "artist": "@illusummer",
-        "tags": [
-            "Rastaban Form",
-            "Techwear",
-            "Featured"
-        ],
-        "href": "https://skeb.jp/@arcielsummer/works/33",
-        "published": "2023-05-05",
-        "thumbnailUrl": "https://alcorsiteartbucket.s3.amazonaws.com/600h/combat_ready_duo.webp",
-        "aspectRatio": 1.7777777777777777,
-        "webp": "https://alcorsiteartbucket.s3.amazonaws.com/webp/combat_ready_duo.webp"
     },
     {
         "title": "Evening Train",
@@ -168,20 +111,6 @@ const displayedImages = [
         "aspectRatio": 0.85107421875
     },
     {
-        "title": "The Beginning",
-        "href": "https://twitter.com/Mike202112/status/1406146656660197379?s=20",
-        "src": "https://pbs.twimg.com/media/E4Oi2GKVcAIQKzo?format=png&name=900x900",
-        "artist": "@Mike202112",
-        "tags": [
-            "Rastaban Form",
-            "Knives",
-            "Standard Outfit",
-            "Featured"
-        ],
-        "published": "2021-06-19",
-        "aspectRatio": 0.7084745762711865
-    },
-    {
         "src": "https://pbs.twimg.com/media/FnHp4nWaUAA-lgD?format=jpg&name=large",
         "title": "Special Archery Training!",
         "href": "https://twitter.com/Yamainu_ken/status/1617331411761115138?s=20",
@@ -208,16 +137,17 @@ export const Primary: Story = {
         targetRowHeight: undefined,
         rowSpacing: undefined,
         itemSpacing: undefined,
-        layoutItems: displayedImages.map(value => value.aspectRatio),
+        aspectRatioList: displayedImages.map(value => value.aspectRatio),
         targetRowHeightTolerance: undefined,
         children: displayedImages.map(value => <>
                 <div style={{top: 16, left: 16, position: "absolute"}}>Testing</div>
-            <img src={value.webp || value.src}/>
+            <img src={value.webp ?? value.src}/>
             </>
         ),
         containerStyle: {position: 'relative'}
     },
 };
+
 
 export const Secondary: Story = {
     name: "Image Tag Elements",
@@ -227,9 +157,23 @@ export const Secondary: Story = {
         targetRowHeight: undefined,
         rowSpacing: undefined,
         itemSpacing: undefined,
-        layoutItems: displayedImages.slice(1, 5).map(value => value.aspectRatio),
+        aspectRatioList: displayedImages.slice(1, 5).map(value => value.aspectRatio),
         targetRowHeightTolerance: undefined,
-        children: displayedImages.slice(1, 5).map(value => <img src={value.webp}/>)
+        children: displayedImages.slice(1, 5).map(value => <img src={value.webp ?? value.src}/>)
+    },
+}
+
+export const Divs: Story = {
+    name: "Divs Only",
+    args: {
+        width: 847,
+        showWidows: true,
+        targetRowHeight: undefined,
+        rowSpacing: undefined,
+        itemSpacing: undefined,
+        aspectRatioList: displayedImages.slice(1, 5).map(value => value.aspectRatio),
+        targetRowHeightTolerance: undefined,
+        children: displayedImages.slice(1, 5).map(value => <Skeleton style={{aspectRatio: value.aspectRatio}}/>)
     },
 }
 
@@ -243,7 +187,7 @@ export const Single: Story = {
         rowSpacing: undefined,
         itemSpacing: undefined,
         targetRowHeightTolerance: undefined,
-        layoutItems: [1],
+        aspectRatioList: [1],
     }
 }
 
@@ -257,6 +201,6 @@ export const SingleWithDiv: Story = {
         rowSpacing: undefined,
         itemSpacing: undefined,
         targetRowHeightTolerance: undefined,
-        layoutItems: [1],
+        aspectRatioList: [1],
     }
 }
