@@ -4,7 +4,7 @@ import './layout.css'
 type ElementDimensions = number;
 
 export interface TSJustifiedLayoutProps {
-    layoutItems: ElementDimensions[];
+    aspectRatioList: number[];
     itemSpacing?: number;
     rowSpacing?: number;
     targetRowHeight?: number;
@@ -19,9 +19,12 @@ export interface TSJustifiedLayoutProps {
     // widowLayoutStyle: "left" | "justify" | "center"
 }
 
+/**
+ * @deprecated Use the new {@link JustifiedGrid} component instead as it has better handling for heights of widow rows and future work will be done there
+ */
 function TSJustifiedLayout({
                                children,
-                               layoutItems,
+                               aspectRatioList,
                                itemSpacing = 10,
                                rowSpacing = 10,
                                showWidows = true,
@@ -29,7 +32,7 @@ function TSJustifiedLayout({
                                targetRowHeightTolerance = .25,
                                width,
                                containerStyle
-                           }: TSJustifiedLayoutProps) {
+                           }: Readonly<TSJustifiedLayoutProps>) {
     const minAspectRatio = width / targetRowHeight * (1 - targetRowHeightTolerance);
     const maxAspectRatio = width / targetRowHeight * (1 + targetRowHeightTolerance);
 
@@ -83,7 +86,7 @@ function TSJustifiedLayout({
     }
 
 
-    layoutItems.forEach((value) => {
+    aspectRatioList.forEach((value) => {
         addItem(value);
     })
 
@@ -97,14 +100,15 @@ function TSJustifiedLayout({
     /**
      * Clone the children element, and inject the height of the element as a prop
      */
-    function renderRowItem(aspectRatio: ElementDimensions, isSoloRow: boolean) {
+    function renderRowItem(aspectRatio: ElementDimensions, isSoloRow: boolean, lastRowWithinTolerance: undefined | boolean, fakeElementAspectRatio: number) {
         childNodeCounter++;
         return <div style={{
-            aspectRatio: aspectRatio,
             flex: isSoloRow ? 1 : aspectRatio,
             ...containerStyle
         }}>
             {children[childNodeCounter]}
+            {/*Extra element for widowed rows to stop them from getting scaled up*/}
+            {lastRowWithinTolerance && <div style={{flex: fakeElementAspectRatio}}/>}
         </div>
     }
 
@@ -118,21 +122,19 @@ function TSJustifiedLayout({
         }}>
             {rows.map((value, index, array) => {
                 let isLastRow = index === array.length - 1 && showWidows;
-                let rowTotalAspectRatio = value.items.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-                const isLastRowWithinTolerance = isLastRow && rowTotalAspectRatio * value.height + (value.items.length - 1) * itemSpacing < minAspectRatio * value.height;
-                const fakeElementAspectRatio = (width - rowTotalAspectRatio * value.height - (value.items.length - 1) * itemSpacing) / value.height
+                let rowAspectRatioSum = value.items.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+                const isLastRowWithinTolerance = isLastRow && rowAspectRatioSum * value.height + (value.items.length - 1) * itemSpacing < minAspectRatio * value.height;
+                const fakeElementAspectRatio = (width - rowAspectRatioSum * value.height - (value.items.length - 1) * itemSpacing) / value.height;
                 return <div className={'justified-row'} style={{
                     display: "flex",
                     flexDirection: "row",
                     gap: itemSpacing,
-                }
-                }>
-                    {value.items.map((aspectRatio) => renderRowItem(aspectRatio, value.items.length === 1))}
-                    {isLastRowWithinTolerance && <div style={{flex: fakeElementAspectRatio}}></div>}
+                }}>
+                    {value.items.map((aspectRatio) => renderRowItem(aspectRatio, value.items.length === 1, isLastRowWithinTolerance, fakeElementAspectRatio))}
                 </div>
             })}
         </div>
     );
 }
 
-export {TSJustifiedLayout}
+export {TSJustifiedLayout, TSJustifiedLayout as JustifiedGrid}

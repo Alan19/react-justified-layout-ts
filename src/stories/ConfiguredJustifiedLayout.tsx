@@ -1,25 +1,23 @@
-import {TSJustifiedLayout, TSJustifiedLayoutProps} from "../components/TSJustifiedLayout";
+import {TSJustifiedLayoutProps} from "../components/TSJustifiedLayout";
 import React from "react";
+import {JustifiedGrid} from "../components/JustifiedGrid";
 
 
 export const ConfiguredJustifiedLayout = ({
-                                              layoutItems,
+                                              aspectRatioList,
                                               rowSpacing = 8,
                                               width = 1000,
                                               itemSpacing = 8,
                                               targetRowHeight = 320,
                                               targetRowHeightTolerance = 0.10,
-                                              showWidows = true,
-                                              children,
-                                              ...props
+                                              children
                                           }: TSJustifiedLayoutProps) => {
-    return <TSJustifiedLayout layoutItems={layoutItems}
-                              width={width}
-                              itemSpacing={itemSpacing}
-                              targetRowHeight={targetRowHeight}
-                              targetRowHeightTolerance={targetRowHeightTolerance}
-                              rowSpacing={rowSpacing}
-                              showWidows={showWidows} {...props}>
+    return <JustifiedGrid aspectRatioList={aspectRatioList}
+                          width={width}
+                          itemSpacing={itemSpacing}
+                          targetRowHeight={targetRowHeight}
+                          targetRowHeightTolerance={targetRowHeightTolerance}
+                          rowSpacing={rowSpacing}>
         {children.map((child) => child)}
-    </TSJustifiedLayout>;
+    </JustifiedGrid>;
 }
